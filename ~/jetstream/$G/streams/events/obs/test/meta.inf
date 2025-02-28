@@ -1,1 +1,0 @@
-{"Created":"2025-02-28T13:01:58.337206Z","Name":"test","durable_name":"test","name":"test","deliver_policy":"all","ack_policy":"explicit","ack_wait":30000000000,"max_deliver":-1,"filter_subject":"event.test","replay_policy":"instant","max_waiting":512,"max_ack_pending":1000,"num_replicas":0}
