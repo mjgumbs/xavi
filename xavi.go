@@ -61,11 +61,11 @@ func (c *Client) Publish(ctx context.Context, subject string, data []byte) error
 
 // AddSubscriber creates or updates a consumer to subscribe to messages on a given event subject.
 // 'name' is used for both the consumer name and durable name, ensuring persistence.
-func (c *Client) AddSubscriber(ctx context.Context, name, event string) error {
+func (c *Client) AddSubscriber(ctx context.Context, name, topic string) error {
 	_, err := c.stream.CreateOrUpdateConsumer(ctx, jetstream.ConsumerConfig{
 		Name:          name,
 		Durable:       name,
-		FilterSubject: event,
+		FilterSubject: topic,
 	})
 	if err != nil {
 		return err
