@@ -4,6 +4,7 @@ package xavi
 
 import (
 	"context"
+	"os"
 	"time"
 
 	"github.com/nats-io/nats-server/v2/server"
@@ -145,11 +146,19 @@ func New(ctx context.Context) (*Client, error) {
 // sets up logging if enabled, and creates a NATS connection to the server.
 func runEmbeddedServer(opts *Options) (*nats.Conn, *server.Server, error) {
 	// Configure the server options.
+
+	// Get the user's home directory to store JetStream data.
+	storeDir, err := os.UserHomeDir()
+
+	if err != nil {
+		return nil, nil, err
+	}
+
 	serverOpts := &server.Options{
 		ServerName: "xavi",
-		DontListen: true, // Prevents the server from listening on a network port.
-		JetStream:  true, // Enables JetStream support.
-		StoreDir:   "~/", // Directory for storing JetStream data.
+		DontListen: true,     // Prevents the server from listening on a network port.
+		JetStream:  true,     // Enables JetStream support.
+		StoreDir:   storeDir, // Directory for storing JetStream data.
 	}
 
 	// Create the embedded NATS server.
